@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookelle</title>
+
+<style>
+body{
+  margin:0;
+  background:#1C1C1E;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.search{
+  padding:12px;
+}
+.search input{
+  width:100%;
+  height:44px;
+  border:none;
+  border-radius:16px;
+  background:#2C2C2E;
+  color:white;
+  padding:0 14px;
+}
+.library{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  padding:14px;
+}
+.book{
+  background:#E5E5EA;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  transition:.25s;
+}
+.book img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+}
+.info{padding:8px}
+.title{font-size:14px;font-weight:600;color:#1C1C1E}
+.author{font-size:12px;color:#6E6E73}
+</style>
+</head>
+
+<body>
+
+<div class="search">
+  <input id="search" placeholder="ابحث عن كتاب">
+</div>
+
+<div class="library" id="library"></div>
+
+<script>
+let books=[];
+
+fetch("books.json")
+.then(r=>r.json())
+.then(data=>{
+  books=data;
+  render(books);
+});
+
+const lib=document.getElementById("library");
+const search=document.getElementById("search");
+
+function render(list){
+  lib.innerHTML="";
+  list.forEach(b=>{
+    const d=document.createElement("div");
+    d.className="book";
+    d.innerHTML=`
+      <img src="${b.image}">
+      <div class="info">
+        <div class="title">${b.title}</div>
+        <div class="author">${b.author}</div>
+      </div>`;
+    d.onclick=()=>{
+      d.style.transform="scale(1.08)";
+      d.style.opacity="0";
+      setTimeout(()=>{
+        location.href=`book.html?id=${b.id}`;
+      },250);
+    };
+    lib.appendChild(d);
+  });
+}
+
+search.oninput=e=>{
+  const v=e.target.value.toLowerCase();
+  render(books.filter(b=>b.title.toLowerCase().includes(v)));
+};
+</script>
+
+</body>
+</html>

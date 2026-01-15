@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "كتاب 1",
+    "author": "المؤلف 1",
+    "image": "https://picsum.photos/400/600?random=1",
+    "description": "هذا وصف كتاب 1. هنا تقدر تكتب كل المعلومات الخاصة بالكتاب.",
+    "download": "books/book1.pdf"
+  },
+  {
+    "id": 2,
+    "title": "كتاب 2",
+    "author": "المؤلف 2",
+    "image": "https://picsum.photos/400/600?random=2",
+    "description": "هذا وصف كتاب 2. هنا تقدر تكتب ",
+    "download": "books/book2.pdf"
+  }
+]
